@@ -4,58 +4,304 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mundo Pelusa MX</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
   <style>
+    * { box-sizing: border-box; }
+
     body {
-      font-family: Atma, sans-serif;
+      font-family: 'Atma', sans-serif;
       text-align: center;
-      margin: 40px;
+      margin: 0;
       background-color: #df8338;
       background-image: url("portada.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
+      color: #3d2510;
+    }
+
+    .overlay {
+      min-height: 100vh;
+      background: rgba(255,255,255,0.15);
+      padding: 24px;
     }
 
     .contenedor {
-      max-width: 900px;
+      max-width: 1100px;
       margin: auto;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       background-image: url("Fondo.png");
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+      background-size: cover;
+      padding: 24px;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.16);
     }
 
     .logo {
-  width: 180px;
-  max-width: 80%;
-  height: auto;
-  display: block;
-  margin: 0 auto 20px auto;
+      width: 180px;
+      max-width: 80%;
+      height: auto;
+      display: block;
+      margin: 0 auto 16px auto;
     }
 
-    .boton {
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .brand img {
+      width: 72px;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    .brand h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 14px 0 26px;
+    }
+
+    .menu-item {
+      position: relative;
       display: inline-block;
-      margin: 20px 0;
-      padding: 14px 22px;
+    }
+
+    .menu-btn,
+    .boton,
+    .pdf-btn,
+    .social-link,
+    .submit-btn {
+      display: inline-block;
+      padding: 12px 18px;
       text-decoration: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 18px;
       background: #543313;
       color: white;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .menu-btn:hover,
+    .boton:hover,
+    .pdf-btn:hover,
+    .social-link:hover,
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(0,0,0,0.18);
+      background: #6b4020;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.16);
+      overflow: hidden;
+      z-index: 100;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 12px 16px;
+      color: #543313;
+      text-decoration: none;
+      font-size: 17px;
+      background: white;
+    }
+
+    .dropdown a:hover {
+      background: #f5e6d8;
+    }
+
+    .menu-item:hover .dropdown {
+      display: block;
+    }
+
+    .hero {
+      padding: 8px 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      margin: 8px 0;
+    }
+
+    .hero h3 {
+      font-size: 24px;
+      margin: 8px 0 12px;
+      font-weight: 500;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 850px;
+      margin: 10px auto;
+      line-height: 1.5;
+    }
+
+    .hero-banner {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin: 18px 0 24px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin: 28px 0;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.88);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+      text-align: left;
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 16px;
+    }
+
+    .card h4 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .seccion {
+      margin-top: 34px;
+      padding-top: 8px;
+    }
+
+    .seccion h2 {
+      font-size: 34px;
+      margin-bottom: 14px;
+    }
+
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
     }
 
     iframe {
       width: 100%;
-      height: 80vh;
+      height: 72vh;
       border: 1px solid #ddd;
-      border-radius: 8px;
+      border-radius: 12px;
+      margin-top: 18px;
+      background: white;
+    }
+
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      text-align: left;
+      align-items: start;
+    }
+
+    .formulario,
+    .bloque-info {
+      background: rgba(255,255,255,0.92);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .formulario label {
+      display: block;
+      margin: 10px 0 6px;
+      font-size: 18px;
+    }
+
+    .formulario input,
+    .formulario textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d8c2ae;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    .formulario textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .redes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .texto-imagen {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+      text-align: left;
+    }
+
+    .texto-imagen img {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .texto-imagen p {
+      font-size: 19px;
+      line-height: 1.6;
     }
 
     .whatsapp-float {
@@ -86,17 +332,47 @@
       fill: white;
     }
 
+    footer {
+      margin-top: 34px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(84, 51, 19, 0.18);
+      font-size: 17px;
+    }
+
+    @media (max-width: 900px) {
+      .contacto-grid,
+      .texto-imagen {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 768px) {
       body {
-        margin: 20px;
+        margin: 0;
+      }
+
+      .overlay {
+        padding: 14px;
       }
 
       .contenedor {
-        padding: 15px;
+        padding: 16px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero h3 {
+        font-size: 21px;
+      }
+
+      .hero p {
+        font-size: 18px;
       }
 
       iframe {
-        height: 60vh;
+        height: 58vh;
       }
 
       .whatsapp-float {
@@ -114,20 +390,134 @@
   </style>
 </head>
 <body>
-  <div class="contenedor">
-    <img src="logoMP.png" alt="Mundo Pelusa" class="logo">
-    <h1>Bienvenidos a Mundo Pelusa</h1>
-    <h3>Somos una tienda de mascotas con diversos articulos a la venta para todo tipo de especies.</h3>
-    <p>Podras encontrar ropa, accesorios, alimentadores, bebederos, juguetes,
-premios, localizadores GPS y mucho mas.</p>
-    <p>Consulta nuestros catalogos</p>
+  <div class="overlay">
+    <div class="contenedor">
+      <div class="topbar">
+        <div class="brand">
+          <img src="logoMP.png" alt="Mundo Pelusa">
+          <div>
+            <h2>Mundo Pelusa MX</h2>
+            <div>Catálogos, contacto y más</div>
+          </div>
+        </div>
+      </div>
 
-    <a class="boton" href="catalogo_mundo-pelusa.pdf" target="_blank">PawTag GPS</a>
+      <nav>
+        <a class="menu-btn" href="#inicio">Inicio</a>
 
-    <iframe src="catalogo_mundo-pelusa.pdf"></iframe>
+        <div class="menu-item">
+          <button class="menu-btn">Menú ▾</button>
+          <div class="dropdown">
+            <a href="#catalogos">Más catálogos</a>
+            <a href="#contacto">Contacto</a>
+            <a href="#nosotros">Nosotros</a>
+          </div>
+        </div>
+      </nav>
+
+      <section class="hero" id="inicio">
+        <img src="logoMP.png" alt="Mundo Pelusa" class="logo">
+        <h1>Bienvenidos a Mundo Pelusa</h1>
+        <h3>Somos una tienda de mascotas con diversos artículos para todo tipo de especies.</h3>
+        <p>Podrás encontrar ropa, accesorios, alimentadores, bebederos, juguetes, premios, localizadores GPS y mucho más.</p>
+        <img src="banner-principal.jpg" alt="Productos para mascotas" class="hero-banner">
+        <p>Consulta nuestro catálogo principal o navega a otras secciones desde el menú.</p>
+
+        <a class="boton" href="catalogo_mundo-pelusa.pdf" target="_blank">PawTag GPS</a>
+        <iframe src="catalogo_mundo-pelusa.pdf" title="Catálogo principal"></iframe>
+      </section>
+
+      <section class="seccion" aria-label="Galería destacada">
+        <h2>Productos destacados</h2>
+        <div class="galeria">
+          <article class="card">
+            <img src="producto1.jpg" alt="Accesorios para mascotas">
+            <div class="card-body">
+              <h4>Accesorios</h4>
+              <p>Correas, pecheras, collares y artículos funcionales con mucho estilo.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="producto2.jpg" alt="Juguetes para mascotas">
+            <div class="card-body">
+              <h4>Juguetes</h4>
+              <p>Opciones divertidas para estimular el juego, el movimiento y la convivencia.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="producto3.jpg" alt="Ropa para mascotas">
+            <div class="card-body">
+              <h4>Ropa</h4>
+              <p>Diseños cómodos y adorables para que tu mascota luzca increíble.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="seccion" id="catalogos">
+        <h2>Más catálogos</h2>
+        <p>Aquí puedes abrir otras páginas PDF con distintos productos o líneas de la tienda.</p>
+        <div class="pdf-grid">
+          <a class="pdf-btn" href="catalogo-1.pdf" target="_blank">Catálogo 1</a>
+          <a class="pdf-btn" href="catalogo-2.pdf" target="_blank">Catálogo 2</a>
+          <a class="pdf-btn" href="catalogo-3.pdf" target="_blank">Catálogo 3</a>
+          <a class="pdf-btn" href="catalogo-4.pdf" target="_blank">Catálogo 4</a>
+          <a class="pdf-btn" href="catalogo-5.pdf" target="_blank">Catálogo 5</a>
+        </div>
+      </section>
+
+      <section class="seccion" id="contacto">
+        <h2>Contacto</h2>
+        <div class="contacto-grid">
+          <div class="formulario">
+            <form action="mailto:tu_correo@ejemplo.com" method="post" enctype="text/plain">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" required>
+
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" required>
+
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" required></textarea>
+
+              <br>
+              <button class="submit-btn" type="submit">Enviar correo</button>
+            </form>
+          </div>
+
+          <div class="bloque-info">
+            <h3>También puedes encontrarnos en:</h3>
+            <div class="redes">
+              <a class="social-link" href="https://www.instagram.com/tu_cuenta" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a class="social-link" href="https://www.facebook.com/tu_pagina" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+            <p style="margin-top: 18px; font-size: 18px; line-height: 1.5;">
+              Escríbenos para cotizaciones, disponibilidad de productos y atención personalizada.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="seccion" id="nosotros">
+        <h2>Sobre nosotros</h2>
+        <div class="texto-imagen">
+          <div>
+            <p>Mundo Pelusa MX nace con la idea de ofrecer productos útiles, bonitos y funcionales para consentir a las mascotas y facilitar la vida de sus familias.</p>
+            <p>Nos enfocamos en brindar variedad, atención cercana y opciones pensadas para diferentes especies y estilos de vida.</p>
+            <p>Puedes usar esta sección para contar la historia de tu negocio, misión, visión, promociones o servicios especiales.</p>
+          </div>
+          <img src="nosotros.jpg" alt="Equipo o tienda Mundo Pelusa MX">
+        </div>
+      </section>
+
+      <footer>
+        © 2026 Mundo Pelusa MX · Todos los derechos reservados
+      </footer>
+    </div>
   </div>
 
-  <!-- Botón flotante de WhatsApp -->
   <a
     class="whatsapp-float"
     href="https://wa.me/525637259617?text=Hola,%20quiero%20m%C3%A1s%20informaci%C3%B3n%20de%20Mundo%20Pelusa%20MX"
